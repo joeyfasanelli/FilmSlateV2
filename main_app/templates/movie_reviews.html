@@ -1,0 +1,36 @@
+{% extends 'base.html' %} 
+
+{% block title %} 
+Reviews
+{% endblock %} 
+
+{% block content %}
+
+<h1>Review Page for {{ title }}</h1>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="review">Review:</label>
+        <textarea class="form-control" id="review" name="review" rows="3"></textarea>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-warning">Submit</button>
+</form>
+<hr>
+{% for r in reviews %} 
+<div class="card text-black bg-muted mb-3">
+    <div class="card-header">
+        {{ r.user }} on {{ r.created_at }}
+    </div>
+    <div class="card-body text-black bg-white">
+      <blockquote class="blockquote mb-0">
+        <p>{{ r.movie_review }}</p>
+      </blockquote>
+      <br></br>
+      <a href="{% url 'movie_reviews_update' r.id %}" style="text-decoration: none; color: grey;">Edit</a> | 
+      <a href="{% url 'movie_reviews_delete' r.id %}" style="text-decoration: none; color: grey;">Delete</a>
+    </div>
+  </div>
+  <br>
+{% endfor %}
+{% endblock %}

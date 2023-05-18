@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% block content %}
+
+<div>
+  <h1> {{ movie.title }}</h1>
+  <h7> {{ movie.description }}</h7>
+  <br></br>
+<div>
+    <a href="{% url 'movies_update' movie.id %}" type='button' class='btn btn-warning'>Edit</a>
+    <a href="{% url 'movies_delete' movie.id %}" type='button' class='btn btn-danger'>Delete</a>
+</div>
+<hr>
+<h3>Accolades:</h3>
+<div>
+    <div>
+      {% if movie.reactions.count %} 
+      {% for reaction in movie.reactions.all %}
+      <div class="card text-black">
+        <div class="card-body">
+          {{ reaction.name }}
+        </div>
+      </div>
+      {% endfor %} 
+      {% else %}
+      <h5>None</h5>
+      {% endif %}
+    </div>
+</div>
+<br>
+<h3>Available:</h3>
+{% if reactions.count %} 
+{% for reaction in reactions.all %} 
+<div class="card text-black">
+  <div class="card-body">
+    {{reaction.name}}
+  </div>
+  <div class="card-action">
+      <form action="{% url 'assoc_reaction' movie.id reaction.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn">Add</button>
+      </form>
+    </div>
+</div>
+{% endfor %} 
+{% else %} 
+<h5>No Accolades available.</h5>
+{% endif %}
+{% endblock %}

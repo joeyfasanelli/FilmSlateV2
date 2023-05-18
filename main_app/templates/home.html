@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<h1 class="text-center">Welcome to FilmSlate!</h1>
+<br>
+<div id="trendings" class="row">
+
+</div>
+
+<script>
+    fetch("/api/trendings")
+    .then(res => res.json())
+    .then(data => {
+        for (let i=0; i<data.results.length; i++){
+            var mainDiv = document.createElement("div");
+            mainDiv.setAttribute("class", "card text-black border-secondary");
+            mainDiv.setAttribute("style", "width: 18rem; margin: 20px; padding: 0px");
+            var img = document.createElement("img");
+            img.setAttribute("src", "https://image.tmdb.org/t/p/w200" + data.results[i].poster_path);
+            img.setAttribute("class", "card-img-top rounded");
+            img.setAttribute("alt", "...");
+            var body = document.createElement("div");
+            // body.setAttribute("class", "card-body");
+            var title = document.createElement("h5");
+            // title.setAttribute("class", "card-title");
+            // if (data.results[i].name) {
+            //     title.innerHTML = data.results[i].name;
+            // } else {
+            //     title.innerHTML = data.results[i].title;
+            // }
+            var text = document.createElement("p");
+            // text.setAttribute("class", "card-text text-black");
+            // text.innerHTML = data.results[i].overview;
+            var link = document.createElement("a");
+            // from the trending API section of TMDB
+            link.setAttribute("href", "/" + data.results[i].media_type + "/" + data.results[i].id + "/");
+            link.setAttribute("class", "stretched-link");
+            // link.setAttribute("class", "btn btn-secondary");
+            // link.innerHTML = "View Details";
+            // body.appendChild(title);
+            // body.appendChild(text);
+            mainDiv.appendChild(link);
+            mainDiv.appendChild(img);
+            // mainDiv.appendChild(body);
+            document.getElementById("trendings").appendChild(mainDiv);
+        }
+    })
+</script>
+{% endblock %}

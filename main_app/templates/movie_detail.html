@@ -1,0 +1,26 @@
+{% extends 'base.html' %} 
+
+{% block title %} 
+Results
+{% endblock %} 
+
+{% block content %} 
+
+<h1>{{data.title}}</h1> 
+<h5 style="color: rgb(187, 187, 187)">Release Date: {{data.release_date}}</h5>
+<h6 style="color: rgb(187, 187, 187)">Runtime: {{data.runtime}} minutes</h6>
+<img src="https://image.tmdb.org/t/p/w200{{ data.poster_path }}" alt="...">
+<br></br>
+<h6>{{data.overview}}</h6>
+<hr></hr>
+<a href="review/" style="text-decoration: none; color: rgb(247, 196, 101); ">Write Review</a>
+<hr></hr>
+<h4>Genres</h4>
+<ul>
+    {% for g in data.genres %}
+        <li>{{ g.name }}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+

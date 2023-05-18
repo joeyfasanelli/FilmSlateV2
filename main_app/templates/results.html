@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+Results
+{% endblock %} 
+
+{% block content %} 
+<br></br>
+<div class="row">
+{% for d in data.results %}
+<div class="card border-secondary" style="width: 18rem; margin: 10px; padding: 0px;">
+    <img class="card-img-top" src="https://image.tmdb.org/t/p/original/{{ d.poster_path }}" alt="Card image cap">
+    <a href="/{{type}}/{{ d.id }}/" class="stretched-link"></a>
+    <!-- <div class="card-body"> -->
+      <!-- <h5 class="card-title text-black">{{ d.title }}</h5> -->
+      <!-- <p class="card-text text-black">{{ d.overview }}</p> -->
+      
+    <!-- </div> -->
+  </div>
+{% endfor %}
+</div>
+{% endblock %} 
